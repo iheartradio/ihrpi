@@ -1,0 +1,13 @@
+#!/bin/bash
+
+opts_and_packages="$@"
+
+install=$(pip install -q --retries 1 --trusted-host ${IHRPI_HOST} --extra-index-url ${IHRPI_URL} ${opts_and_packages})
+inst_status=$?
+
+echo "${install}" | \
+    sed "s|${IHRPI_URL}|IHRPI_URL|g" | \
+    sed "s|${IHRPI_HOST}|IHRPI_HOST|g" | \
+    sed "s|${IHRPI_PASS}|IHRPI_PASS|g"
+
+exit ${inst_status}

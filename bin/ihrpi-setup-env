@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# TODO: support zsh and others
+
+echo "Consult your admin for the IHRPI_HOST, IHRPI_USER, IHRPI_PASS value."
+echo "Input the IHRPI_HOST here and press ENTER."
+read ihrpi_host
+echo "Input the IHRPI_USER here and press ENTER."
+read ihrpi_user
+echo "Input the IHRPI_PASS here and press ENTER."
+read ihrpi_pass
+echo "Input the IHRPI_S3_BUCKET here and press ENTER."
+read ihrpi_s3_bucket
+
+ihrpi_port=8089
+for pair in "IHRPI_USER=\"${ihrpi_user}\"" \
+            "IHRPI_HOST=\"${ihrpi_host}\"" \
+            "IHRPI_PASS=\"${ihrpi_pass}\"" \
+            "IHRPI_URL=\"http://$\{IHRPI_USER\}:$\{IHRPI_PASS\}@$\{IHRPI_HOST\}:${ihrpi_port}/simple\"" \
+            "IHRPI_S3_BUCKET=\"${ihrpi_s3_bucket}\""
+            
+do
+    echo "export ${pair}" >> ~/.bash_profile
+done
+
+source ~/.bash_profile
+
+echo "Configuring pip.conf..."
+echo
+
+pip_conf="~/.pip/pip.conf"
+
+if [ -f ${pip_conf} ]; then
+    echo "${pip_conf} already exists. Please make sure it contains the following:"
+    echo
+    echo "[global]"
+    echo "trusted-host = ${ihrpi_host}"
+    echo "extra-index-url = http://${IHRPI_USER}:${IHRPI_PASS}@${IHRPI_HOST}:${ihrpi_port}/simple"
+else
+    echo "Updating ~/.pip/pip.conf"
+    mkdir -p ~/.pip
+
+    echo "[global]" >> ${pip_conf}
+    echo "trusted-host = ${ihrpi_host}" >> ${pip_conf}
+    echo "extra-index-url = http://${IHRPI_USER}:${IHRPI_PASS}@${IHRPI_HOST}:${ihrpi_port}/simple" >> ${pip_conf}
+fi

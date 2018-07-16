@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if ! [ -x "$(command -v travis)" ]; then
+  echo >&2 "Install travis before proceeding."
+  echo >&2 "https://github.com/travis-ci/travis.rb#installation"
+  exit 1
+fi
+
+echo "# IHRPI_USER"
+u=$(travis encrypt IHRPI_USER=${IHRPI_USER})
+echo "secure: ${u}"
+
+echo "# IHRPI_PASS"
+p=$(travis encrypt IHRPI_PASS=${IHRPI_PASS})
+echo "secure: ${p}"
+
+echo "# IHRPI_HOST"
+h=$(travis encrypt IHRPI_HOST=${IHRPI_HOST})
+echo "secure: ${h}"
+
+echo "# IHRPI_URL"
+url=$(travis encrypt IHRPI_URL="http://\${IHRPI_USER}:\${IHRPI_PASS}@\${IHRPI_HOST}:8089/simple")
+echo "secure: ${url}"

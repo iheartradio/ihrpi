@@ -1,0 +1,31 @@
+#!/bin/bash
+
+d="/tmp/packages"
+rm -rf "${d}"
+mkdir "${d}"
+
+rm -rf dist/*
+python setup.py sdist --format=zip
+python setup.py bdist_wheel
+
+# pull down included packages as well
+if [ -d ".tox/py27" ]; then
+    source .tox/py27/bin/activate
+    pip freeze > reqs
+elif [ -d ".tox/py3" ]; then
+    source .tox/py3/bin/activate
+    pip freeze > reqs
+fi
+
+if [ -f "reqs" ]; then
+    deactivate
+    pip2tgz "${d}" -r reqs --extra-index-url ${IHRPI_URL}
+    rm -rf reqs
+fi
+
+cp dist/*.zip /tmp/packages/
+cp dist/*.whl /tmp/packages/
+
+dir2pi "${d}"
+echo "Syncing ${d} with s3://${IHRPI_S3_BUCKET}/packages..."
+aws s3 sync "${d}" s3://${IHRPI_S3_BUCKET}/packages

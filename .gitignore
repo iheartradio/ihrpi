@@ -1,0 +1,12 @@
+*.pyc
+.idea/
+build/
+dist/
+*.swp
+venv/
+target/
+.coverage
+*egg-info/
+.tox/
+.cache/
+.DS_Store

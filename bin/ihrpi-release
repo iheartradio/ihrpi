@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "Running tests..."
+tox
+
+echo "Bump version - type [major, minor, or patch] and press ENTER."
+read part
+bumpversion ${part}
+bump_status=$?
+if [ "${bump_status}" -ne "0" ] ; then
+    echo "Bump version failed."
+    exit 1
+fi
+
+echo "Press ENTER to push tags to origin and changes to origin/master."
+read
+
+current_version=$(ihrpi-gcv)
+cv_status=$?
+if [ "${cv_status}" -ne "0" ] ; then
+    echo "Get current version failed."
+    exit 2
+fi
+
+git push origin "${current_version}"
+git push origin master

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# NOTE: we do not want ihrpi host or credentials to be saved in github so we're
+# using no-index and no-emit-trusted-host options
+pip-compile --no-index --no-emit-trusted-host \
+    --output-file requirements.txt requirements.in

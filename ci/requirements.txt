@@ -1,0 +1,4 @@
+boto3
+flask>= 0.10.1
+uwsgi
+Flask-HTTPAuth
