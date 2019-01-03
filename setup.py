@@ -13,6 +13,7 @@ tools = [
     , 'pip2pi'
     , 'tox'
     , 'pip-tools'
+    , 'wheel'
 ]
 
 setup(
