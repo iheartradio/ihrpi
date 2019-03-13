@@ -1,16 +1,10 @@
 #!/bin/bash
 
 if [ -z "$TOX_ENV" ]; then
-    a_run=$(tox)
+    tox | sed -u "s|${IHRPI_URL}|IHRPI_URL|g" | sed -u "s|${IHRPI_HOST}|IHRPI_HOST|g" | sed -u "s|${IHRPI_PASS}|IHRPI_PASS|g"
 else
-    a_run=$(tox -e ${TOX_ENV})
+    tox -e ${TOX_ENV} | sed -u "s|${IHRPI_URL}|IHRPI_URL|g" | sed -u "s|${IHRPI_HOST}|IHRPI_HOST|g" | sed -u "s|${IHRPI_PASS}|IHRPI_PASS|g"
 fi 
 
 run_status=$?
-
-echo "${a_run}" | \
-    sed "s|${IHRPI_URL}|IHRPI_URL|g" | \
-    sed "s|${IHRPI_HOST}|IHRPI_HOST|g" | \
-    sed "s|${IHRPI_PASS}|IHRPI_PASS|g"
-
 exit ${run_status}
