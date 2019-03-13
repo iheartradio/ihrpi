@@ -18,8 +18,9 @@ tag = True
 """.format(v, tag_name if tag_name is not None else '')
 
     def test_get_current_version(self, tmpdir):
-        p = join(tmpdir, '.bumpversion.cfg')
-        os.chdir(tmpdir)
+        td = str(tmpdir)
+        p = join(td, '.bumpversion.cfg')
+        os.chdir(td)
 
         v = '0.1.0'
         prefix = 'my_version'
