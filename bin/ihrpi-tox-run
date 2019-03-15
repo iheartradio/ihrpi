@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o pipefail
+
 if [ -z "$TOX_ENV" ]; then
     tox | sed -u "s|${IHRPI_URL}|IHRPI_URL|g" | sed -u "s|${IHRPI_HOST}|IHRPI_HOST|g" | sed -u "s|${IHRPI_PASS}|IHRPI_PASS|g"
 else
