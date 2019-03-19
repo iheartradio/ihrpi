@@ -28,7 +28,7 @@ source ~/.bash_profile
 echo "Configuring pip.conf..."
 echo
 
-pip_conf="~/.pip/pip.conf"
+pip_conf=~/.pip/pip.conf
 
 if [ -f ${pip_conf} ]; then
     echo "${pip_conf} already exists. Please make sure it contains the following:"
