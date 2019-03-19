@@ -18,7 +18,7 @@ tools = [
 
 setup(
     name='ihrpi',
-    version='1.0.2',
+    version='1.0.3',
     author='Sam Garrett',
     author_email='samgarrett@iheartmedia.com',
     description='iHeart private packaging tools & index.',
