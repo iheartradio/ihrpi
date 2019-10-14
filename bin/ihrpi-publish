@@ -11,13 +11,12 @@ python setup.py bdist_wheel
 name=$(python setup.py --name)
 
 # pull down included packages as well
-if [ -d ".tox/py27" ]; then
-    source .tox/py27/bin/activate
-    pip freeze | grep -v ${name} > reqs
-elif [ -d ".tox/py3" ]; then
+if [ -d ".tox/py3" ]; then
     source .tox/py3/bin/activate
     pip freeze | grep -v ${name} > reqs
-fi
+elif [ -d ".tox/py27" ]; then
+    source .tox/py27/bin/activate
+    pip freeze | grep -v ${name} > reqs
 
 if [ -f "reqs" ]; then
     deactivate
