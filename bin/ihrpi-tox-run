@@ -2,11 +2,30 @@
 
 set -o pipefail
 
-if [ -z "$TOX_ENV" ]; then
-    tox | sed -u "s|${IHRPI_URL}|IHRPI_URL|g" | sed -u "s|${IHRPI_HOST}|IHRPI_HOST|g" | sed -u "s|${IHRPI_PASS}|IHRPI_PASS|g"
+while [[ "$#" -gt 0 ]]; do case $1 in
+  -l|--latest-pip) latest_pip=1;;
+  -h|--help) help=1;;
+  -v|--verbose) verbose="-vvv";;
+  *) echo "Unknown parameter passed: $1"; exit 1;;
+esac; shift; done
+
+if [[ "$help" -eq "1" ]] ; then
+   echo "Usage:"
+   echo "ihrpi-tox-run [options]";
+   echo "General Options:"
+   echo "   -h, --help          Show help."
+   echo "   -l, --latest-pip    Let tox install the latest pip."
+   echo "   -v, --verbose       Verbose output."
+   exit;
+fi
+
+if [[ "$latest_pip" -eq "1" ]] ; then
+    echo "WARNING: tox will use latest pip version."
 else
-    tox -e ${TOX_ENV} | sed -u "s|${IHRPI_URL}|IHRPI_URL|g" | sed -u "s|${IHRPI_HOST}|IHRPI_HOST|g" | sed -u "s|${IHRPI_PASS}|IHRPI_PASS|g"
-fi 
+    latest_pip_arg="VIRTUALENV_NO_DOWNLOAD=1"
+fi
+
+eval "${latest_pip_arg} tox -e ${TOX_ENV} ${verbose}" | sed -u "s|${IHRPI_URL}|IHRPI_URL|g" | sed -u "s|${IHRPI_HOST}|IHRPI_HOST|g" | sed -u "s|${IHRPI_PASS}|IHRPI_PASS|g"
 
 run_status=$?
 exit ${run_status}
