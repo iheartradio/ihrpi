@@ -2,6 +2,7 @@
 > iHeart private packaging tools & index
 
 [![Build Status](https://travis-ci.com/iheartradio/ihrpi.svg?token=DRZy5ZWDwtAusJJ7MRfF&branch=master)](https://travis-ci.com/iheartradio/ihrpi)
+[![CircleCI](https://circleci.com/gh/iheartradio/ihrpi/tree/master.svg?style=svg)](https://circleci.com/gh/iheartradio/ihrpi/tree/master)
 
 ## Setup for building and installing private packages
 
