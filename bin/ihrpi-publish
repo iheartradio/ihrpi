@@ -17,6 +17,7 @@ if [ -d ".tox/py3" ]; then
 elif [ -d ".tox/py27" ]; then
     source .tox/py27/bin/activate
     pip freeze | grep -v ${name} > reqs
+fi
 
 if [ -f "reqs" ]; then
     deactivate
