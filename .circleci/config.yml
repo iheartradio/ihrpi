@@ -1,16 +1,4 @@
 jobs:
-  "py36":
-    working_directory: ~/ihrpi
-    docker:
-      - image: circleci/python:3.6.9
-    steps:
-        - checkout
-        - run: sudo chown -R circleci:circleci /usr/local/bin
-        - run: sudo chown -R circleci:circleci /usr/local/lib/python*
-        - run: pip install tox wheel
-        - run:
-            name: "Run tests"
-            command: tox -e py36
   "py37":
     working_directory: ~/ihrpi
     docker:
@@ -40,6 +28,5 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - "py36"
       - "py37"
       - "pep8"
