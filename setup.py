@@ -22,7 +22,6 @@ setup(
     author='Sam Garrett',
     author_email='samgarrett@iheartmedia.com',
     description='iHeart private packaging tools & index.',
-    python_requires='>=3.7',
     scripts=[
         'bin/ihrpi-build',
         'bin/ihrpi-configure-travis',
