@@ -5,11 +5,9 @@ install: pip install tox wheel
 
 matrix:
   include:
-    - python: 3.6
-      env: TOX_ENV=py36
-    - python: 3.5.6
-      env: TOX_ENV=py35
-    - python: 3.6
+    - python: 3.7
+      env: TOX_ENV=py37
+    - python: 3.7
       env: TOX_ENV=pep8
 
 script:

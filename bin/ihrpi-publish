@@ -29,5 +29,9 @@ cp dist/*.zip /tmp/packages/
 cp dist/*.whl /tmp/packages/
 
 dir2pi "${d}"
+
+echo "Removing bad *.tar.gz files from local 'simple' package index."
+find "${d}/simple" -name "*.tar.gz" -exec rm -rf {} ;
+
 echo "Syncing ${d} with s3://${IHRPI_S3_BUCKET}/packages..."
 aws s3 sync "${d}" s3://${IHRPI_S3_BUCKET}/packages
