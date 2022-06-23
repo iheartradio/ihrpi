@@ -1,0 +1,17 @@
+name: Manual Run Tests
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch you wanna test
+        required: true
+        default: master
+
+jobs:
+  run_python_tests:
+    name: Run Python Tests
+    uses: ./.github/workflows/run_tests.yml
+    secrets: inherit
+    with:
+      branch: ${{ github.event.inputs.branch }}
+      skip: false
