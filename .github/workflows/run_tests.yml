@@ -1,0 +1,35 @@
+name: Run Tests
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: Branch you wanna test
+        required: true
+        type: string
+        default: master
+
+jobs:
+  run_python_tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: [ '3.7' ]
+        tox_env: [ 'pep8', 'py37' ]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python_version }}
+          architecture: x64
+
+      - name: Install Tox
+        run: pip install tox
+
+      - name: Run Tests
+        run: tox -e ${{ matrix.tox_env }}
