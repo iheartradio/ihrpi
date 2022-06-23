@@ -6,7 +6,7 @@
 `Fixed`: for any bug fixes.
 
 ### Testing
-_Describe how (and to what extent) this work was tested (in staging, prod, local, etc)_
+_Describe how (and to what extent) this work was tested
 
 ### Setup
 _Add any necessary steps needed to run in order to see this work._
