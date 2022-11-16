@@ -39,7 +39,7 @@ setup(
         # See https://github.com/getsentry/responses/blob/df920c09fcdb97f260dddba631ad5a1d9042188a/CHANGES#L45
         # We need the `_is_string` method
         'responses<0.18.0',
-        'urllib3<2.0.0',
+        'urllib3>=1.21.1,<1.27',
     ],
     extras_require={
         'api': api
